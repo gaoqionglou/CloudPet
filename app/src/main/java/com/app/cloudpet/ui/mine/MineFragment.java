@@ -1,5 +1,6 @@
 package com.app.cloudpet.ui.mine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +14,18 @@ import androidx.lifecycle.ViewModelProvider;
 import com.app.cloudpet.R;
 import com.app.cloudpet.bean.PetType;
 import com.app.cloudpet.databinding.FragmentMineBinding;
+import com.app.cloudpet.model.Pet;
 import com.app.cloudpet.model._User;
+import com.app.cloudpet.ui.pet.MyPetActivity;
 import com.app.cloudpet.utils.DialogUtil;
 
+import java.util.List;
+
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 import static com.app.cloudpet.utils.ToastUtil.toast;
@@ -62,6 +70,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         mineBinding.hobby.setOnClickListener(this);
         mineBinding.pet.setOnClickListener(this);
         mineBinding.year.setOnClickListener(this);
+        mineBinding.pet.setOnClickListener(this);
     }
 
     @Override
@@ -83,8 +92,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         PetType type = PetType.valueOf(petType);
         mineBinding.tvPet.setText(type.name);
         mineBinding.iconPet.setImageResource(type.iconResId);
-
-
     }
 
     @Override
@@ -93,6 +100,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         _User user = BmobUser.getCurrentUser(_User.class);
         String title = "提示";
         switch (id) {
+            case R.id.level:
             case R.id.objId:
                 toast("暂不可修改");
                 break;
@@ -108,6 +116,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                             } else {
                                 toast("修改失败");
                             }
+                            bindView(BmobUser.getCurrentUser(_User.class));
                         }
                     });
                 });
@@ -124,6 +133,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                             } else {
                                 toast("修改失败");
                             }
+                            bindView(BmobUser.getCurrentUser(_User.class));
                         }
                     });
                 });
@@ -140,6 +150,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                             } else {
                                 toast("修改失败");
                             }
+                            bindView(BmobUser.getCurrentUser(_User.class));
                         }
                     });
                 });
@@ -156,12 +167,30 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                             } else {
                                 toast("修改失败");
                             }
+                            bindView(BmobUser.getCurrentUser(_User.class));
                         }
                     });
                 });
                 break;
             case R.id.pet:
-                title = "修改养宠";
+                String petId = user.getMyPetId();
+                BmobQuery<Pet> query = new BmobQuery<Pet>();
+                query.addWhereEqualTo("petId", petId);
+                // 执行查询方法
+                query.findObjects(new FindListener<Pet>() {
+                                      @Override
+                                      public void done(List<Pet> list, BmobException e) {
+                                          if (e == null) {
+                                              Intent intent = new Intent(MineFragment.this.getActivity(), MyPetActivity.class);
+                                              intent.putExtra("pet", list.get(0));
+                                              startActivity(intent);
+                                          } else {
+                                              toast("找不到你的宠物了");
+                                          }
+                                      }
+                                  }
+
+                );
 
                 break;
             case R.id.year:
@@ -176,6 +205,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                             } else {
                                 toast("修改失败");
                             }
+                            bindView(BmobUser.getCurrentUser(_User.class));
                         }
                     });
                 });

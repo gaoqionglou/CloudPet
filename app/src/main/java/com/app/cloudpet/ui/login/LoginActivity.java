@@ -29,6 +29,7 @@ import com.app.cloudpet.databinding.ActivityLoginBinding;
 import com.app.cloudpet.model._User;
 import com.app.cloudpet.ui.MainActivity;
 import com.app.cloudpet.ui.WelcomeActivity;
+import com.app.cloudpet.ui.register.RegisterActivity;
 import com.app.cloudpet.utils.ToastUtil;
 
 public class LoginActivity extends CommonActivity {
@@ -65,6 +66,10 @@ public class LoginActivity extends CommonActivity {
             startActivity(intent);
             LoginActivity.this.finish();
 
+        });
+        activityLoginBinding.btnRegister.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
         });
     }
 

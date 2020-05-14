@@ -306,7 +306,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="15dp"
-                    android:text="喜欢的宠物"
+                    android:text="我的宠物"
                     android:textColor="#000"
                     android:textSize="@dimen/primary_text_size" />
 
@@ -341,8 +341,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:src="@mipmap/arrow_left"
-                    android:visibility="invisible" />
+                    android:src="@mipmap/arrow_left" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -385,8 +384,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:src="@mipmap/arrow_left"
-                    android:visibility="invisible" />
+                    android:src="@mipmap/arrow_left" />
             </RelativeLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

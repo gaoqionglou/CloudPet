@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_bg_color">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/icon_pet"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="100dp"
+        android:src="@mipmap/icon_cat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:background="#fff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@+id/icon_pet">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:text="宠物姓名"
+            android:textColor="#000"
+            android:textSize="@dimen/primary_text_size" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@+id/arrow_name"
+            android:textColor="#747474"
+            android:textSize="@dimen/primary_text_size" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/gender"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+
+        android:background="#fff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@+id/name">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:text="宠物性别"
+            android:textColor="#000"
+            android:textSize="@dimen/primary_text_size" />
+
+        <TextView
+            android:id="@+id/tv_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:textColor="#747474"
+            android:textSize="@dimen/primary_text_size" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/type"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+
+        android:background="#fff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@+id/gender">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="10dp"
+            android:text="宠物类型"
+            android:textColor="#000"
+            android:textSize="@dimen/primary_text_size" />
+
+        <TextView
+            android:id="@+id/tv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:textColor="#747474"
+            android:textSize="@dimen/primary_text_size" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/status"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+
+        android:background="#fff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@+id/type">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="10dp"
+            android:text="绝育状态"
+            android:textColor="#000"
+            android:textSize="@dimen/primary_text_size" />
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:textColor="#747474"
+            android:textSize="@dimen/primary_text_size" />
+
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
