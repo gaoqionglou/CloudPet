@@ -2,6 +2,7 @@ package com.app.cloudpet.ui.register;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 
@@ -38,6 +39,20 @@ public class RegisterActivity extends ThemeActivity {
             String city = activiyRegisterBinding.etCity.getText().toString().trim();
             String hobby = activiyRegisterBinding.etHobby.getText().toString().trim();
             String petName = activiyRegisterBinding.etPetName.getText().toString().trim();
+            String petYear = activiyRegisterBinding.etPetYear.getText().toString().trim();
+
+            if (!TextUtils.isEmpty(username) &&
+                    !TextUtils.isEmpty(password) &&
+                    !TextUtils.isEmpty(city) &&
+                    !TextUtils.isEmpty(hobby) &&
+                    !TextUtils.isEmpty(petName) &&
+                    !TextUtils.isEmpty(petYear)
+
+            ) {
+                toast("请填写完整你的信息再进行注册");
+                return;
+            }
+
             String userId = UUIDCreator.uuid();
             String petId = UUIDCreator.uuid();
 
@@ -77,7 +92,7 @@ public class RegisterActivity extends ThemeActivity {
             user.setMyPet(petType);
             user.setMyPetId(petId);
             user.setUserId(userId);
-
+            user.setRaisedPetYear(petYear);
             user.signUp(new SaveListener<_User>() {
                 @Override
                 public void done(_User s, BmobException e) {

@@ -5,4 +5,5 @@
     <color name="colorAccent">#F94B4B</color>
     <color name="line_color">#D5D5D5</color>
     <color name="common_bg_color">#EEEEEE</color>
+    <color name="white">#FFF</color>
 </resources>

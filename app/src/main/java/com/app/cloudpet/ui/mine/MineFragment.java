@@ -16,6 +16,7 @@ import com.app.cloudpet.bean.PetType;
 import com.app.cloudpet.databinding.FragmentMineBinding;
 import com.app.cloudpet.model.Pet;
 import com.app.cloudpet.model._User;
+import com.app.cloudpet.ui.MainActivity;
 import com.app.cloudpet.ui.pet.MyPetActivity;
 import com.app.cloudpet.utils.DialogUtil;
 
@@ -25,7 +26,6 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 import static com.app.cloudpet.utils.ToastUtil.toast;
@@ -54,7 +54,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
 
 
         mineViewModel = new ViewModelProvider(this).get(MineViewModel.class);
-
+        MainActivity activity = (MainActivity) getActivity();
+        activity.setCustomActionBar("个人中心");
         return mineBinding.getRoot();
     }
 
@@ -90,7 +91,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         mineBinding.tvId.setText(user.getObjectId());
         String petType = user.getMyPet();
         PetType type = PetType.valueOf(petType);
-        mineBinding.tvPet.setText(type.name);
+        mineBinding.tvPet.setText(user.getMyPetName());
         mineBinding.iconPet.setImageResource(type.iconResId);
     }
 

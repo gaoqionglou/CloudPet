@@ -18,10 +18,21 @@ public class _User extends BmobUser {
     private String city;
     //等级
     private String level;
-    //我的宠物
+    //我的宠物(类型)
     private String myPet;
-    //我的宠物
+    //我的宠物id
     private String myPetId;
+    //我的宠物name
+    private String myPetName;
+
+    public String getMyPetName() {
+        return myPetName;
+    }
+
+    public void setMyPetName(String myPetName) {
+        this.myPetName = myPetName;
+    }
+
     //收养年限
     private String raisedPetYear;
     //兴趣爱好

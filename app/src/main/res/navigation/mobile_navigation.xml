@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.app.cloudpet.ui.mine.MineFragment"
+        android:name="com.app.cloudpet.ui.home.HomeFragment"
         android:label="@string/home"
-        tools:layout="@layout/fragment_mine" />
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_community"
@@ -19,10 +19,9 @@
 
     <fragment
         android:id="@+id/navigation_raise"
-        android:name="com.app.cloudpet.ui.mine.MineFragment"
+        android:name="com.app.cloudpet.ui.raise.RaiseFragment"
         android:label="@string/pet"
-        tools:layout="@layout/fragment_mine" />
-
+        tools:layout="@layout/fragment_raise" />
 
 
     <fragment
