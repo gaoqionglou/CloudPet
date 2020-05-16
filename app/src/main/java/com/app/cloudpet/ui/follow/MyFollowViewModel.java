@@ -26,6 +26,7 @@ public class MyFollowViewModel extends ViewModel {
     public void follows(String userId) {
         BmobQuery<Follow> query = new BmobQuery<>();
         query.addWhereEqualTo("userId", userId);
+        query.order("-createdAt");
         query.findObjects(new FindListener<Follow>() {
             @Override
             public void done(List<Follow> list, BmobException e) {

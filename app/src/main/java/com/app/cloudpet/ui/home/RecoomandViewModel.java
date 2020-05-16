@@ -27,6 +27,7 @@ public class RecoomandViewModel extends ViewModel {
         BmobQuery<Follow> followBmobQuery = new BmobQuery<>();
         followBmobQuery.addWhereEqualTo("userId", userId);
         followBmobQuery.addWhereEqualTo("followUserId", followUserId);
+        followBmobQuery.order("-createdAt");
         followBmobQuery.findObjects(new FindListener<Follow>() {
             @Override
             public void done(List<Follow> list, BmobException e) {
@@ -59,6 +60,7 @@ public class RecoomandViewModel extends ViewModel {
                         queries.add(eq);
                     }
                     recommandFinal.or(queries);
+                    recommandFinal.order("-createdAt");
                     recommandFinal.findObjects(new FindListener<Recommand>() {
                         @Override
                         public void done(List<Recommand> list, BmobException e) {
@@ -78,6 +80,7 @@ public class RecoomandViewModel extends ViewModel {
 
     public void recommands() {
         BmobQuery<Recommand> query = new BmobQuery<>();
+        query.order("-createdAt");
         query.findObjects(new FindListener<Recommand>() {
             @Override
             public void done(List<Recommand> list, BmobException e) {
