@@ -45,15 +45,6 @@ public class RaiseFragment extends Fragment {
         MainActivity activity = (MainActivity) getActivity();
         activity.setCustomActionBar("认养公告");
 
-
-        return raiseBinding.getRoot();
-
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        raiseViewModel.raisepets();
         mAdapter = new RaiseListAdapter(null, getContext());
         raiseBinding.rvRaise.setLayoutManager(new LinearLayoutManager(getContext()));
         raiseBinding.rvRaise.setAdapter(mAdapter);
@@ -63,6 +54,15 @@ public class RaiseFragment extends Fragment {
                 mAdapter.setData(infoList);
             }
         });
+
+        return raiseBinding.getRoot();
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        raiseViewModel.raisepets();
     }
 
 

@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_community"
-        android:name="com.app.cloudpet.ui.mine.MineFragment"
+        android:name="com.app.cloudpet.ui.topic.TopicFragment"
         android:label="@string/society"
-        tools:layout="@layout/fragment_mine" />
+        tools:layout="@layout/fragment_topic" />
 
     <fragment
         android:id="@+id/navigation_raise"

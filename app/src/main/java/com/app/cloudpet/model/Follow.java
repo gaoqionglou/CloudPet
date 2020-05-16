@@ -3,69 +3,28 @@ package com.app.cloudpet.model;
 import cn.bmob.v3.BmobObject;
 
 public class Follow extends BmobObject {
-    private String username;
-    private String city;
-    private String image;
-    private String avatar;
-    private String petname;
-    private String pettype;
-    private String content;
+    //用户
     private String userId;
+    //这个用户关注的人
+    private String followUserId;
 
-    public String getUsername() {
-        return username;
+    private String followUserAvatar;
+    private String followUsername;
+
+    public String getFollowUsername() {
+        return followUsername;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setFollowUsername(String followUsername) {
+        this.followUsername = followUsername;
     }
 
-    public String getCity() {
-        return city;
+    public String getFollowUserAvatar() {
+        return followUserAvatar;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    public String getPetname() {
-        return petname;
-    }
-
-    public void setPetname(String petname) {
-        this.petname = petname;
-    }
-
-    public String getPettype() {
-        return pettype;
-    }
-
-    public void setPettype(String pettype) {
-        this.pettype = pettype;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
+    public void setFollowUserAvatar(String followUserAvatar) {
+        this.followUserAvatar = followUserAvatar;
     }
 
     public String getUserId() {
@@ -74,5 +33,13 @@ public class Follow extends BmobObject {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getFollowUserId() {
+        return followUserId;
+    }
+
+    public void setFollowUserId(String followUserId) {
+        this.followUserId = followUserId;
     }
 }

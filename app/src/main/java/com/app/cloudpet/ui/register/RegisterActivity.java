@@ -1,12 +1,18 @@
 package com.app.cloudpet.ui.register;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.app.cloudpet.R;
 import com.app.cloudpet.base.ThemeActivity;
@@ -15,15 +21,25 @@ import com.app.cloudpet.databinding.ActiviyRegisterBinding;
 import com.app.cloudpet.model.Pet;
 import com.app.cloudpet.model._User;
 import com.app.cloudpet.ui.login.LoginActivity;
+import com.app.cloudpet.ui.post.CameraHandler;
+import com.app.cloudpet.ui.post.CameraImageBean;
+import com.app.cloudpet.ui.post.CameraUtil;
+import com.app.cloudpet.ui.post.RequestCodes;
 import com.app.cloudpet.utils.UUIDCreator;
+import com.bumptech.glide.Glide;
+import com.yalantis.ucrop.UCrop;
+import com.yalantis.ucrop.util.FileUtils;
 
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
+import static com.app.cloudpet.ui.post.RequestCodes.TAKE_PHOTO;
 import static com.app.cloudpet.utils.ToastUtil.toast;
 
 public class RegisterActivity extends ThemeActivity {
     private ActiviyRegisterBinding activiyRegisterBinding;
+    private CameraHandler cameraHandler;
+    private String avatarImagePath = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,6 +47,20 @@ public class RegisterActivity extends ThemeActivity {
         activiyRegisterBinding = ActiviyRegisterBinding.inflate(LayoutInflater.from(this));
         setTitle("注册");
         setContentView(activiyRegisterBinding.getRoot());
+        //判断是否有相机权限
+        if (!(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)) {
+
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 0);
+        }
+        cameraHandler = new CameraHandler(this);
+        activiyRegisterBinding.avatar.setOnClickListener(v -> {
+            //判断是否有相机权限
+            if (!(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)) {
+                toast("请赋予相机权限");
+                return;
+            }
+            cameraHandler.beginCameraDialog();
+        });
         activiyRegisterBinding.btnRegister.setOnClickListener(v -> {
             String username = activiyRegisterBinding.etName.getText().toString().trim();
             String password = activiyRegisterBinding.etPwd.getText().toString().trim();
@@ -41,13 +71,12 @@ public class RegisterActivity extends ThemeActivity {
             String petName = activiyRegisterBinding.etPetName.getText().toString().trim();
             String petYear = activiyRegisterBinding.etPetYear.getText().toString().trim();
 
-            if (!TextUtils.isEmpty(username) &&
-                    !TextUtils.isEmpty(password) &&
-                    !TextUtils.isEmpty(city) &&
-                    !TextUtils.isEmpty(hobby) &&
-                    !TextUtils.isEmpty(petName) &&
-                    !TextUtils.isEmpty(petYear)
-
+            if (TextUtils.isEmpty(username) ||
+                    TextUtils.isEmpty(password) ||
+                    TextUtils.isEmpty(city) ||
+                    TextUtils.isEmpty(hobby) ||
+                    TextUtils.isEmpty(petName) ||
+                    TextUtils.isEmpty(petYear)
             ) {
                 toast("请填写完整你的信息再进行注册");
                 return;
@@ -91,17 +120,21 @@ public class RegisterActivity extends ThemeActivity {
             user.setHobby(hobby);
             user.setMyPet(petType);
             user.setMyPetId(petId);
+            user.setMyPetName(petName);
             user.setUserId(userId);
             user.setRaisedPetYear(petYear);
+            user.setLevel("1");
+            user.setAvatar(avatarImagePath);
             user.signUp(new SaveListener<_User>() {
                 @Override
                 public void done(_User s, BmobException e) {
 
                     if (e == null) {
                         toast("注册成功!");
-                        Intent localIntent = new Intent(
-                                getApplicationContext(), LoginActivity.class);
-                        startActivity(localIntent);
+                        Intent localIntent = new Intent();
+                        localIntent.putExtra("username", user.getUsername());
+                        localIntent.putExtra("password", password);
+                        RegisterActivity.this.setResult(RESULT_OK, localIntent);
                         finish();
 
                     } else {
@@ -112,18 +145,19 @@ public class RegisterActivity extends ThemeActivity {
             });
 
 
-            savePet(petName, userId, petId, petGender, ster);
+            savePet(petName, userId, petId, petGender, petType, ster);
 
         });
     }
 
-    private void savePet(String petName, String userId, String petId, String petGender, boolean ster) {
+    private void savePet(String petName, String userId, String petId, String petGender, String petType, boolean ster) {
         Pet pet = new Pet();
         pet.setGender(petGender);
         pet.setHostId(userId);
         pet.setMyPetName(petName);
         pet.setSterilization(ster);
         pet.setPetId(petId);
+        pet.setPetType(petType);
         pet.save(new SaveListener<String>() {
             @Override
             public void done(String s, BmobException e) {
@@ -136,5 +170,32 @@ public class RegisterActivity extends ThemeActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == TAKE_PHOTO) {
+                Uri resultUri = CameraImageBean.getInstance().getPath();
+                UCrop.of(resultUri, resultUri).start(this);
+            } else if (requestCode == RequestCodes.PICK_PHOTO) {
+                if (data != null) {
+                    Uri pickPath = data.getData();
+                    //从相册选择后需要有个路径存放剪裁后的图片
+                    String pickCropPath = CameraUtil.createCropFile().getPath();
+                    UCrop.of(pickPath, Uri.parse(pickCropPath)).start(this);
+                }
+            } else if (requestCode == RequestCodes.CROP_PHOTO) {
+                if (data == null) return;
+                Uri cropUri = UCrop.getOutput(data);
+                avatarImagePath = FileUtils.getPath(this, cropUri);
+                Glide.with(this).load(cropUri).apply(Constants.OPTIONS).into(activiyRegisterBinding.avatarImage);
+            } else if (requestCode == RequestCodes.CROP_ERROR) {
+                toast("剪裁失败");
+            }
+
+
+        }
     }
 }

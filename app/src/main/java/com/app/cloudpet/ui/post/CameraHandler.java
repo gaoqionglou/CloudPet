@@ -16,6 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 
 import com.app.cloudpet.R;
 import com.app.cloudpet.utils.JFileUtil;
@@ -34,12 +35,19 @@ public class CameraHandler implements View.OnClickListener {
 
     private Context context;
 
+    private Fragment fragment;
+
     public CameraHandler(Context context) {
         this.context = context;
         DIALOG = new AlertDialog.Builder(context).create();
     }
 
-    final void beginCameraDialog() {
+    public CameraHandler withFragment(Fragment fragment) {
+        this.fragment = fragment;
+        return this;
+    }
+
+    public void beginCameraDialog() {
         DIALOG.show();
         final Window window = DIALOG.getWindow();
         if (window != null) {
@@ -88,7 +96,12 @@ public class CameraHandler implements View.OnClickListener {
             CameraImageBean.getInstance().setPath(fileUri);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
         }
-        ((Activity) context).startActivityForResult(intent, RequestCodes.TAKE_PHOTO);
+
+        if (fragment != null) {
+            fragment.startActivityForResult(intent, RequestCodes.TAKE_PHOTO);
+        } else {
+            ((Activity) context).startActivityForResult(intent, RequestCodes.TAKE_PHOTO);
+        }
     }
 
     //头像-相册选择
@@ -97,8 +110,16 @@ public class CameraHandler implements View.OnClickListener {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        ((Activity) context).startActivityForResult
-                (Intent.createChooser(intent, "选择获取图片的方式"), RequestCodes.PICK_PHOTO);
+
+        if (fragment != null) {
+            fragment.startActivityForResult
+                    (Intent.createChooser(intent, "选择获取图片的方式"), RequestCodes.PICK_PHOTO);
+        } else {
+            ((Activity) context).startActivityForResult
+                    (Intent.createChooser(intent, "选择获取图片的方式"), RequestCodes.PICK_PHOTO);
+        }
+
+
     }
 
     @Override

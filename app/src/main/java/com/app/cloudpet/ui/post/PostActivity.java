@@ -19,8 +19,10 @@ import com.app.cloudpet.base.BaseActivity;
 import com.app.cloudpet.common.Constants;
 import com.app.cloudpet.databinding.ActivityPostBinding;
 import com.app.cloudpet.databinding.PostBarLayoutBinding;
+import com.app.cloudpet.model.Comment;
 import com.app.cloudpet.model.Recommand;
 import com.app.cloudpet.model._User;
+import com.app.cloudpet.utils.UUIDCreator;
 import com.bumptech.glide.Glide;
 import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.util.FileUtils;
@@ -30,6 +32,8 @@ import java.io.File;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
 import static com.app.cloudpet.ui.post.RequestCodes.TAKE_PHOTO;
@@ -88,7 +92,7 @@ public class PostActivity extends BaseActivity {
                 imageUri = cropUri;
                 activityPostBinding.add.setVisibility(View.GONE);
                 activityPostBinding.imageView.setVisibility(View.VISIBLE);
-                Glide.with(this).load(cropUri).into(activityPostBinding.imageView);
+                Glide.with(this).load(cropUri).apply(Constants.OPTIONS).into(activityPostBinding.imageView);
             } else if (requestCode == RequestCodes.CROP_ERROR) {
                 toast("剪裁失败");
             }
@@ -131,22 +135,28 @@ public class PostActivity extends BaseActivity {
 
         String path = FileUtils.getPath(this, imageUri);
         File mfile = new File(path);
-        BmobFile file = new BmobFile(mfile);
-        file.upload(new UploadFileListener() {
+        recommand.setCommentCount("0");
+        recommand.setLikeCount("0");
+        recommand.setImage(path);
+        recommand.setMomentId(UUIDCreator.uuid());
+        recommand.setCity(user.getCity());
+        recommand.setPetname(user.getMyPetName());
+        recommand.setContent(content);
+        recommand.setPettype(user.getMyPet());
+        recommand.setUserId(user.getUserId());
+        recommand.setUsername(user.getUsername());
+        recommand.setAvatar(user.getAvatar());
+        recommand.save(new SaveListener<String>() {
             @Override
-            public void done(BmobException e) {
-                if (e == null) {
-                    recommand.setCity(user.getCity());
-                    recommand.setAvatar(user.getAvatar());
-                    recommand.setContent(content);
-                    recommand.setPetname(user.getMyPetName());
+            public void done(String s, BmobException e) {
 
-                    recommand.saveSync();
-                    Log.i(Constants.TAG, file.getFileUrl());
+                if (e == null) {
+                    toast("发布成功");
+                    PostActivity.this.finish();
                 } else {
                     e.printStackTrace();
+                    toast("发布失败");
                 }
-                PostActivity.this.finish();
             }
         });
 

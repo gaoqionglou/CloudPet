@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.cloudpet.R;
 import com.app.cloudpet.bean.PetType;
+import com.app.cloudpet.common.Constants;
 import com.app.cloudpet.databinding.RaiseListViewItemBinding;
 import com.app.cloudpet.model.Raisepet;
 import com.app.cloudpet.model._User;
@@ -47,7 +48,7 @@ public class RaiseListAdapter extends RecyclerView.Adapter<RaiseListAdapter.View
         Raisepet raisepet = mInfoList.get(position);
         holder.viewItemBinding.desc.setText(raisepet.getDesc());
         holder.viewItemBinding.icon.setImageResource(PetType.valueOf(raisepet.getPettype()).iconResId);
-        Glide.with(mContext).load(raisepet.getImg()).into(holder.viewItemBinding.imageView);
+        Glide.with(mContext).load(raisepet.getImg()).apply(Constants.OPTIONS).into(holder.viewItemBinding.imageView);
         holder.viewItemBinding.raise.setEnabled(TextUtils.isEmpty(raisepet.getRaisePersonPhone()));
         if (TextUtils.isEmpty(raisepet.getRaisePersonPhone())) {
             holder.viewItemBinding.raise.setText("认养");

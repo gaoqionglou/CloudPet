@@ -25,6 +25,12 @@ public class _User extends BmobUser {
     //我的宠物name
     private String myPetName;
 
+
+
+    //收养年限
+    private String raisedPetYear;
+    //兴趣爱好
+    private String hobby;
     public String getMyPetName() {
         return myPetName;
     }
@@ -32,12 +38,6 @@ public class _User extends BmobUser {
     public void setMyPetName(String myPetName) {
         this.myPetName = myPetName;
     }
-
-    //收养年限
-    private String raisedPetYear;
-    //兴趣爱好
-    private String hobby;
-
     public String getAvatar() {
         return avatar;
     }

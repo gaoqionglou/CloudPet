@@ -1,5 +1,7 @@
 package com.app.cloudpet.model;
 
+import java.util.List;
+
 import cn.bmob.v3.BmobObject;
 
 
@@ -7,6 +9,7 @@ import cn.bmob.v3.BmobObject;
  * 推荐内容
  */
 public class Recommand extends BmobObject {
+    private String momentId;
     private String username;
     private String city;
     private String image;
@@ -15,6 +18,33 @@ public class Recommand extends BmobObject {
     private String pettype;
     private String content;
     private String userId;
+    private String likeCount;
+    private String commentCount;
+
+
+    public String getMomentId() {
+        return momentId;
+    }
+
+    public void setMomentId(String momentId) {
+        this.momentId = momentId;
+    }
+
+    public String getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(String likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public String getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(String commentCount) {
+        this.commentCount = commentCount;
+    }
 
     public String getUsername() {
         return username;
@@ -78,5 +108,22 @@ public class Recommand extends BmobObject {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    @Override
+    public String toString() {
+        return "Recommand{" +
+                "momentId='" + momentId + '\'' +
+                ", username='" + username + '\'' +
+                ", city='" + city + '\'' +
+                ", image='" + image + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", petname='" + petname + '\'' +
+                ", pettype='" + pettype + '\'' +
+                ", content='" + content + '\'' +
+                ", userId='" + userId + '\'' +
+                ", likeCount='" + likeCount + '\'' +
+                ", commentCount='" + commentCount + '\'' +
+                '}';
     }
 }

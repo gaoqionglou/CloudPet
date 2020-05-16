@@ -6,4 +6,9 @@
     <color name="line_color">#D5D5D5</color>
     <color name="common_bg_color">#EEEEEE</color>
     <color name="white">#FFF</color>
+    <color name="divider_line_color">#BBBBBB</color>
+    <color name="grey">#BBBBBB</color>
+    <color name="blue_text_color">#55A7DD</color>
+
+    <color name="dark_blue_text_color">    #0729B5</color>
 </resources>

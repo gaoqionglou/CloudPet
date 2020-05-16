@@ -44,6 +44,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".web.H5Activity" />
+        <activity android:name=".ui.follow.MyFollowActivity" />
+        <activity android:name=".ui.messege.MessageActivity" />
 
         <meta-data
             android:name="android.max_aspect"

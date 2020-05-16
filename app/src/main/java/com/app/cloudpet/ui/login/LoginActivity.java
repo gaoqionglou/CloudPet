@@ -1,6 +1,7 @@
 package com.app.cloudpet.ui.login;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -31,6 +32,8 @@ import com.app.cloudpet.ui.MainActivity;
 import com.app.cloudpet.ui.WelcomeActivity;
 import com.app.cloudpet.ui.register.RegisterActivity;
 import com.app.cloudpet.utils.ToastUtil;
+
+import static com.app.cloudpet.common.Constants.REQUEST_CODE_REGISTER;
 
 public class LoginActivity extends CommonActivity {
 
@@ -69,10 +72,20 @@ public class LoginActivity extends CommonActivity {
         });
         activityLoginBinding.btnRegister.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, Constants.REQUEST_CODE_REGISTER);
+
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_REGISTER) {
+            if (data == null) return;
+            activityLoginBinding.loginId.setText(data.getStringExtra("username"));
+            activityLoginBinding.loginId.setText(data.getStringExtra("password"));
+        }
+    }
 
     public void userLogin(View view) {
         String username = activityLoginBinding.loginId.getText().toString().trim();
