@@ -20,10 +20,10 @@ import com.app.cloudpet.bean.PetType;
 import com.app.cloudpet.common.Constants;
 import com.app.cloudpet.databinding.FragmentMineBinding;
 import com.app.cloudpet.databinding.MineActionBarLayoutBinding;
-import com.app.cloudpet.ui.follow.MyFollowActivity;
 import com.app.cloudpet.model.Pet;
 import com.app.cloudpet.model._User;
 import com.app.cloudpet.ui.MainActivity;
+import com.app.cloudpet.ui.follow.MyFollowActivity;
 import com.app.cloudpet.ui.login.LoginActivity;
 import com.app.cloudpet.ui.messege.MessageActivity;
 import com.app.cloudpet.ui.pet.MyPetActivity;
@@ -110,6 +110,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         mineBinding.pet.setOnClickListener(this);
         mineBinding.avatar.setOnClickListener(this);
         mineBinding.followList.setOnClickListener(this);
+        mineBinding.password.setOnClickListener(this);
 
     }
 
@@ -245,6 +246,23 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                                 toast("修改成功");
                             } else {
                                 toast("修改失败");
+                            }
+                            bindView(BmobUser.getCurrentUser(_User.class));
+                        }
+                    });
+                });
+                break;
+            case R.id.password:
+                title = "修改密码";
+                DialogUtil.alertEditTextDialog(getActivity(), title, inputText -> {
+                    user.setPassword(inputText);
+                    user.update(new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if (e == null) {
+                                toast("修改密码成功");
+                            } else {
+                                toast("修改密码失败");
                             }
                             bindView(BmobUser.getCurrentUser(_User.class));
                         }
