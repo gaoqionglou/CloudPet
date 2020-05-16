@@ -1,14 +1,5 @@
 package com.app.cloudpet.ui.login;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,20 +7,20 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
-import com.app.cloudpet.R;
-import com.app.cloudpet.base.BaseActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.app.cloudpet.base.CommonActivity;
 import com.app.cloudpet.common.Constants;
-import com.app.cloudpet.databinding.ActionBarLayoutBinding;
 import com.app.cloudpet.databinding.ActivityLoginBinding;
-import com.app.cloudpet.model._User;
 import com.app.cloudpet.ui.MainActivity;
-import com.app.cloudpet.ui.WelcomeActivity;
 import com.app.cloudpet.ui.register.RegisterActivity;
 import com.app.cloudpet.utils.ToastUtil;
 
@@ -83,7 +74,7 @@ public class LoginActivity extends CommonActivity {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_REGISTER) {
             if (data == null) return;
             activityLoginBinding.loginId.setText(data.getStringExtra("username"));
-            activityLoginBinding.loginId.setText(data.getStringExtra("password"));
+            activityLoginBinding.loginPassword.setText(data.getStringExtra("password"));
         }
     }
 
