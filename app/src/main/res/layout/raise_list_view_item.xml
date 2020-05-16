@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     app:cardCornerRadius="6dp"
+    android:maxHeight="200dp"
     app:cardElevation="10dp">
 
     <RelativeLayout
@@ -13,15 +14,15 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
             android:scaleType="fitXY" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_below="@+id/imageView"
+            android:layout_toEndOf="@+id/imageView"
             android:padding="1dp"
             android:src="@mipmap/icon_cat" />
 
@@ -29,11 +30,10 @@
             android:id="@+id/petname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imageView"
-            android:layout_alignBottom="@+id/icon"
             android:layout_toEndOf="@+id/icon"
             android:gravity="center|start"
             android:paddingStart="10dp"
+            android:layout_alignBottom="@+id/icon"
             android:text="12312312"
             android:textSize="@dimen/title_text_size" />
 
@@ -41,18 +41,17 @@
             android:id="@+id/desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/petname"
-            android:layout_toEndOf="@+id/icon"
+            android:layout_below="@+id/icon"
+            android:layout_alignStart="@+id/icon"
             android:gravity="center|start"
-            android:paddingStart="15dp"
             android:text="12312312"
-            android:textSize="@dimen/primary_text_size" />
+            android:textSize="13sp" />
 
         <Button
             android:id="@+id/raise"
             android:layout_width="60dp"
             android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
             android:layout_margin="5dp"
             android:background="@drawable/raise_btn_selector"
             android:enabled="true"

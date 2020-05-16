@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -121,7 +122,12 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     }
 
     private void bindView(_User user) {
-//        mineBinding.avatar
+        if (!TextUtils.isEmpty(user.getAvatar())) {
+            Glide.with(this).load(user.getAvatar()).apply(Constants.OPTIONS).into(mineBinding.avatarImage);
+        } else {
+            mineBinding.avatarImage.setImageResource(R.mipmap.def_icon);
+        }
+
         mineBinding.tvCity.setText(user.getCity());
         mineBinding.tvName.setText(user.getUsername());
         mineBinding.tvGender.setText(user.getGender());

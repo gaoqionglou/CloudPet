@@ -1,6 +1,7 @@
 package com.app.cloudpet.ui.raise;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.app.cloudpet.common.Constants;
 import com.app.cloudpet.databinding.RaiseListViewItemBinding;
 import com.app.cloudpet.model.Raisepet;
 import com.app.cloudpet.model._User;
+import com.app.cloudpet.web.H5Activity;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
@@ -70,6 +72,27 @@ public class RaiseListAdapter extends RecyclerView.Adapter<RaiseListAdapter.View
                 }
             });
         });
+
+        holder.viewItemBinding.petname.setOnClickListener(view -> {
+            toH5(raisepet.getUrl(), raisepet.getPetname());
+        });
+        holder.viewItemBinding.icon.setOnClickListener(view -> {
+            toH5(raisepet.getUrl(), raisepet.getPetname());
+        });
+        holder.viewItemBinding.desc.setOnClickListener(view -> {
+            toH5(raisepet.getUrl(), raisepet.getPetname());
+        });
+        holder.viewItemBinding.imageView.setOnClickListener(view -> {
+            toH5(raisepet.getUrl(), raisepet.getPetname());
+        });
+    }
+
+
+    private void toH5(String url, String title) {
+        Intent intent = new Intent(mContext, H5Activity.class);
+        intent.putExtra("url", url);
+        intent.putExtra("title", title);
+        mContext.startActivity(intent);
     }
 
     @Override

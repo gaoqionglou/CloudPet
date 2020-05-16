@@ -7,6 +7,15 @@ public class Raisepet extends BmobObject {
     private String pettype;
     private String petname;
     private String img;
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     private String raisePersonPhone;
 

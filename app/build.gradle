@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "com.app.cloudpet"
         minSdkVersion 22
-        targetSdkVersion 29
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
 
@@ -84,4 +84,5 @@ dependencies {
     implementation 'com.github.yalantis:ucrop:2.2.2-native'
     //第三方常用工具类库
     api 'com.blankj:utilcode:1.16.4'
+    implementation 'com.yanzhenjie:album:1.0.2'
 }

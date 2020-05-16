@@ -107,10 +107,12 @@ public class CameraHandler implements View.OnClickListener {
     //头像-相册选择
     private void pickPhoto() {
         final Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
+//        intent.setType("image/*");
+//        intent.setAction(Intent.ACTION_GET_CONTENT);
+//        intent.addCategory(Intent.CATEGORY_OPENABLE);
 
+        intent.setAction(Intent.ACTION_PICK);
+        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
         if (fragment != null) {
             fragment.startActivityForResult
                     (Intent.createChooser(intent, "选择获取图片的方式"), RequestCodes.PICK_PHOTO);
@@ -119,8 +121,8 @@ public class CameraHandler implements View.OnClickListener {
                     (Intent.createChooser(intent, "选择获取图片的方式"), RequestCodes.PICK_PHOTO);
         }
 
-
     }
+
 
     @Override
     public void onClick(View v) {

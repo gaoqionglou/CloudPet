@@ -61,7 +61,7 @@ public class JFileUtil {
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private static File createDir(String sdcardDirName) {
         //拼接成SD卡中完整的dir
-        final String dir = SDCARD_DIR + "/" + sdcardDirName + "/";
+        final String dir = APP_DIR + "/" + sdcardDirName + "/";
         final File fileDir = new File(dir);
         if (!fileDir.exists()) {
             fileDir.mkdirs();

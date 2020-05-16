@@ -11,4 +11,5 @@ public class Constants {
             .placeholder(R.mipmap.lost)
             .error(R.mipmap.lost).dontAnimate();
     public static  int REQUEST_CODE_REGISTER=1;
+    public static int REQUEST_ALBUM = 2;
 }
