@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,6 @@ import com.app.cloudpet.base.BaseActivity;
 import com.app.cloudpet.common.Constants;
 import com.app.cloudpet.databinding.ActivityPostBinding;
 import com.app.cloudpet.databinding.PostBarLayoutBinding;
-import com.app.cloudpet.model.Comment;
 import com.app.cloudpet.model.Recommand;
 import com.app.cloudpet.model._User;
 import com.app.cloudpet.utils.UUIDCreator;
@@ -30,11 +28,8 @@ import com.yalantis.ucrop.util.FileUtils;
 import java.io.File;
 
 import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
-import cn.bmob.v3.listener.UpdateListener;
-import cn.bmob.v3.listener.UploadFileListener;
 
 import static com.app.cloudpet.ui.post.RequestCodes.TAKE_PHOTO;
 import static com.app.cloudpet.utils.ToastUtil.toast;
@@ -131,10 +126,11 @@ public class PostActivity extends BaseActivity {
 
         Recommand recommand = new Recommand();
         _User user = BmobUser.getCurrentUser(_User.class);
-
-
-        String path = FileUtils.getPath(this, imageUri);
-        File mfile = new File(path);
+        String path = "";
+        if (imageUri != null) {
+            path = FileUtils.getPath(this, imageUri);
+            File mfile = new File(path);
+        }
         recommand.setCommentCount("0");
         recommand.setLikeCount("0");
         recommand.setImage(path);

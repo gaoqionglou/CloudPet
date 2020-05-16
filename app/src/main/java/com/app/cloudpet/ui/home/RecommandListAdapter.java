@@ -3,7 +3,6 @@ package com.app.cloudpet.ui.home;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,13 +20,11 @@ import com.app.cloudpet.model.Comment;
 import com.app.cloudpet.model.Follow;
 import com.app.cloudpet.model.Recommand;
 import com.app.cloudpet.model._User;
-import com.app.cloudpet.ui.post.PostActivity;
 import com.app.cloudpet.utils.DialogUtil;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
@@ -76,8 +73,17 @@ public class RecommandListAdapter extends RecyclerView.Adapter<RecommandListAdap
         holder.viewItemBinding.username.setText(recommand.getUsername());
         holder.viewItemBinding.content.setText(recommand.getContent());
         holder.viewItemBinding.time.setText(recommand.getCreatedAt());
-        Glide.with(mContext).load(recommand.getImage()).apply(Constants.OPTIONS).into(holder.viewItemBinding.image);
-        Glide.with(mContext).load(recommand.getAvatar()).apply(Constants.OPTIONS).into(holder.viewItemBinding.iconAvatar);
+        if (!TextUtils.isEmpty(recommand.getImage())) {
+            holder.viewItemBinding.image.setVisibility(View.VISIBLE);
+            Glide.with(mContext).load(recommand.getImage()).apply(Constants.OPTIONS).into(holder.viewItemBinding.image);
+        } else {
+            holder.viewItemBinding.image.setVisibility(View.GONE);
+        }
+        if (!TextUtils.isEmpty(recommand.getAvatar())) {
+            Glide.with(mContext).load(recommand.getAvatar()).apply(Constants.OPTIONS).into(holder.viewItemBinding.iconAvatar);
+        } else {
+            holder.viewItemBinding.iconAvatar.setImageResource(R.mipmap.def_icon);
+        }
 
         holder.viewItemBinding.like.setOnClickListener(v -> {
             int count = Integer.parseInt(recommand.getLikeCount());
