@@ -245,7 +245,10 @@ public class RecommandListAdapter extends RecyclerView.Adapter<RecommandListAdap
 
     private void comment(Recommand recommand, CommentListener commentListener) {
         DialogUtil.alertEditTextDialog(mContext, "评论", (inputText) -> {
-            if (TextUtils.isEmpty(inputText)) return;
+            if (TextUtils.isEmpty(inputText)) {
+                toast("评论不可以为空");
+                return;
+            }
             _User user = BmobUser.getCurrentUser(_User.class);
             Comment comment = new Comment();
             comment.setCommentcontent(inputText);

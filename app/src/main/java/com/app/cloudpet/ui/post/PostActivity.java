@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -123,6 +124,10 @@ public class PostActivity extends BaseActivity {
     private void post() {
 
         String content = activityPostBinding.content.getText().toString();
+        if (TextUtils.isEmpty(content)) {
+            toast("发布文字不能为空！");
+            return;
+        }
 
         Recommand recommand = new Recommand();
         _User user = BmobUser.getCurrentUser(_User.class);
