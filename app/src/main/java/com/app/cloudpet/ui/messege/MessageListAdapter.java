@@ -43,7 +43,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Follow follow = mInfoList.get(position);
-        String text = "用户" + follow.getFollowUsername() + "在" + follow.getCreatedAt() + "关注了你";
+        String text = "用户" + follow.getUsername() + "在" + follow.getCreatedAt() + "关注了你";
         holder.viewItemBinding.message.setText(text);
 
     }

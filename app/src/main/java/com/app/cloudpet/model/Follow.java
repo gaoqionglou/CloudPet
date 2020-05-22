@@ -5,11 +5,20 @@ import cn.bmob.v3.BmobObject;
 public class Follow extends BmobObject {
     //用户
     private String userId;
+    private String username;
     //这个用户关注的人
     private String followUserId;
 
     private String followUserAvatar;
     private String followUsername;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getFollowUsername() {
         return followUsername;

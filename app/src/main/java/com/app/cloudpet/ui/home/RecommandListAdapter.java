@@ -114,6 +114,12 @@ public class RecommandListAdapter extends RecyclerView.Adapter<RecommandListAdap
             }
         });
 
+        if (recommand.getUserId().equals(BmobUser.getCurrentUser(_User.class).getUserId())) {
+            holder.viewItemBinding.follow.setVisibility(View.GONE);
+        } else {
+            holder.viewItemBinding.follow.setVisibility(View.VISIBLE);
+        }
+
         recoomandViewModel.checkIfFollow(BmobUser.getCurrentUser(_User.class).getUserId(), recommand.getUserId(), new RecoomandViewModel.QueryFollowListener() {
             @Override
             public void onFollowQuerySuccess(List<Follow> list) {
@@ -149,6 +155,7 @@ public class RecommandListAdapter extends RecyclerView.Adapter<RecommandListAdap
             follow.setFollowUserId(recommand.getUserId());
             follow.setFollowUserAvatar(recommand.getAvatar());
             follow.setFollowUsername(recommand.getUsername());
+            follow.setUsername(BmobUser.getCurrentUser(_User.class).getUsername());
             follow.setUserId(BmobUser.getCurrentUser(_User.class).getUserId());
 
 
