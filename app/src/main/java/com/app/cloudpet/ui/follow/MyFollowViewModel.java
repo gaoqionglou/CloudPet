@@ -23,9 +23,9 @@ public class MyFollowViewModel extends ViewModel {
 
 
 
-    public void follows(String userId) {
+    public void msgfollows(String followUserId) {
         BmobQuery<Follow> query = new BmobQuery<>();
-        query.addWhereEqualTo("followUserId", userId);
+        query.addWhereEqualTo("followUserId", followUserId);
         query.order("-createdAt");
         query.findObjects(new FindListener<Follow>() {
             @Override
@@ -40,4 +40,26 @@ public class MyFollowViewModel extends ViewModel {
             }
         });
     }
+
+
+    public void follows(String userId) {
+        BmobQuery<Follow> query = new BmobQuery<>();
+        query.addWhereEqualTo("userId", userId);
+        query.order("-createdAt");
+        query.findObjects(new FindListener<Follow>() {
+            @Override
+            public void done(List<Follow> list, BmobException e) {
+                if (e == null) {
+                    toast("获取关注列表成功");
+                    follows.setValue(list);
+                } else {
+                    toast("获取关注列表失败");
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+
+
 }

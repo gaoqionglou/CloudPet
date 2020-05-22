@@ -60,7 +60,7 @@ public class MessageActivity extends BaseActivity {
             }
         });
 
-        myFollowViewModel.follows(BmobUser.getCurrentUser(_User.class).getUserId());
+        myFollowViewModel.msgfollows(BmobUser.getCurrentUser(_User.class).getUserId());
 
     }
 
