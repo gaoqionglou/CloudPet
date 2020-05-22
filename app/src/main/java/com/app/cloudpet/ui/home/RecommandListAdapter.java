@@ -114,6 +114,7 @@ public class RecommandListAdapter extends RecyclerView.Adapter<RecommandListAdap
             }
         });
 
+        //判断是否是本人发出的动态，如果是本人就显示删除按钮隐藏关注按钮
         if (recommand.getUserId().equals(BmobUser.getCurrentUser(_User.class).getUserId())) {
             holder.viewItemBinding.follow.setVisibility(View.GONE);
             holder.viewItemBinding.del.setVisibility(View.VISIBLE);
