@@ -260,7 +260,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.password:
                 title = "修改密码";
-                DialogUtil.alertEditTextDialog(getActivity(), title, inputText -> {
+                DialogUtil.alertPwdDialog(getActivity(), title, inputText -> {
                     user.setPassword(inputText);
                     user.update(new UpdateListener() {
                         @Override
