@@ -116,9 +116,26 @@ public class RecommandListAdapter extends RecyclerView.Adapter<RecommandListAdap
 
         if (recommand.getUserId().equals(BmobUser.getCurrentUser(_User.class).getUserId())) {
             holder.viewItemBinding.follow.setVisibility(View.GONE);
+            holder.viewItemBinding.del.setVisibility(View.VISIBLE);
         } else {
             holder.viewItemBinding.follow.setVisibility(View.VISIBLE);
+            holder.viewItemBinding.del.setVisibility(View.GONE);
         }
+
+        holder.viewItemBinding.del.setOnClickListener(v -> {
+            recommand.delete(new UpdateListener() {
+                @Override
+                public void done(BmobException e) {
+                    if (e == null) {
+                        toast("删除成功");
+                        refreshData();
+                    } else {
+                        e.printStackTrace();
+                        toast("删除失败");
+                    }
+                }
+            });
+        });
 
         recoomandViewModel.checkIfFollow(BmobUser.getCurrentUser(_User.class).getUserId(), recommand.getUserId(), new RecoomandViewModel.QueryFollowListener() {
             @Override
