@@ -85,6 +85,7 @@ public class RegisterActivity extends ThemeActivity {
             String userId = UUIDCreator.uuid();
             String petId = UUIDCreator.uuid();
 
+            String phone = activiyRegisterBinding.etPhone.getText().toString();
             int petGenderButtonId = activiyRegisterBinding.petGenderRG.getCheckedRadioButtonId();
             String petGender = "MM";
             if (petGenderButtonId == R.id.mm) {
@@ -124,6 +125,7 @@ public class RegisterActivity extends ThemeActivity {
             user.setUserId(userId);
             user.setRaisedPetYear(petYear);
             user.setLevel("1");
+            user.setPhone(phone);
             user.setAvatar(avatarImagePath);
             user.signUp(new SaveListener<_User>() {
                 @Override
